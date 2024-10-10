@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> my new page </title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main">
+        <form>
+            <label for="name"> Name: </label>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="email"> Email: </label>
+            <input type="text" id="email" name="email"><br>
+
+            <label for="phoneno"> Phone no: </label>
+            <input type="text" id="phone" name="phone"><br>
+
+            <button id="btn" onclick="addData(event)"> add data </button>
+
+
+        </form>
+
+        <br>
+        <table id="table">
+            <tr>
+                <td> Name </td>
+                <td> Email </td>
+                <td> Phone no </td>
+                <td> Actions </td>
+                
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <script>
+
+
+        function clearInputs()
+        {
+             document.getElementById("name").value = "";
+             document.getElementById("email").value = "";
+             document.getElementById("phone").value = "";
+        }
+        function addData(event)
+        {
+            event.preventDefault();
+            let name = document.getElementById("name").value;     <!-- we use document to access globally a parent , we can say that its a parent-->
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            
+            let table = document.getElementById("table");
+            let newrow = table.insertRow(table.rows.length);      <!--syntax to add new row (just structure) to that table-->
+            newrow.insertCell(0).innerHTML = name;
+            newrow.insertCell(1).innerHTML = email;
+            newrow.insertCell(2).innerHTML = phone;
+
+            
+
+        }
+        function deleteData(button)
+        {
+
+        }
+        function editData(button)    <!-- this button contains ref of that particular row , whose edit button called-->
+        {
+            <!-- 1- getThatcomplete row -->
+            let row = button.parent.parent;       <!--as table data usually is inside tr , then inside td , so first parent for td and second for tr , so it will return that complete row -->
+        
+            <!--2- now get each cell in that row-->
+            let name = row.cells[0];
+            let email = row.cells[1];
+            let phone = row.cells[2];
+
+            <!-- getUpdated values from user using PROMPT(it use two parameter one is prompt message , second is default value )-->
+            let updatedName = prompt("Enter updated name :" , name.innerHTML);   <!-
+
+        
+        
+        
+        }
+
+
+    </script>
+
+
+</body>
+</html>
