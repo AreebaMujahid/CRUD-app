@@ -2,7 +2,7 @@
 <html>
 <head>
 <title> my new page </title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
     <div class="main">
@@ -16,7 +16,7 @@
             <label for="phoneno"> Phone no: </label>
             <input type="text" id="phone" name="phone"><br>
 
-            <button id="btn" onclick="addData(event)"> add data </button>
+            <button id="btn" onclick="addDataToLocalStorage(event)"> add data </button>
 
 
         </form>
@@ -45,7 +45,26 @@
              document.getElementById("email").value = "";
              document.getElementById("phone").value = "";
         }
-        function addData(event)
+        function saveDataToLocalStorage(data){
+            localStorage.setItem('tableData',JSON.stringify(data));
+        }
+        
+        function addDataToLocalStorage(event){
+            event.preventDefault();
+            let name = document.getElementById("name").value;     
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+
+            
+            let StoredData = JSON.parse(localStorage.getItem('tableData')) || [];
+            console.log(StoredData);
+            StoredData.push({ name: name, email: email, phone: phone });
+            saveDataToLocalStorage(StoredData);
+            addDataToTable(event);
+
+
+        }
+        function addDataToTable(event)
         {
             event.preventDefault();
             let name = document.getElementById("name").value;     
@@ -58,7 +77,7 @@
             newrow.insertCell(1).innerHTML = email;
             newrow.insertCell(2).innerHTML = phone;
             newrow.insertCell(3).innerHTML = '<button onclick="editData(this)">Edit</button>' + '<button onclick="deleteData(this)">Delete</button>'
-
+            
             
 
         }
@@ -67,11 +86,13 @@
             let row = button.parentNode.parentNode;
             row.parentNode.removeChild(row);
 
+
+
         }
         function editData(button)    
         {
             
-            let row = button.parent.parent;       
+            let row = button.parentNode.parentNode;       
         
             
             let name = row.cells[0];
@@ -82,18 +103,17 @@
             let updatedEmail = prompt("Enter updated email" , email.innerHTML);
             let updatedPhone = prompt("Enter updated phone no" , phone.innerHTML);
 
-            name.innerHTML  = updatedName.value;
-            email.innerHTML = updatedEmail.value;
-            phone.innerHTML = updatedPhone.value;
-  
+            name.innerHTML  = updatedName;
+            email.innerHTML = updatedEmail;
+            phone.innerHTML = updatedPhone;
 
         
         
         
         }
+        
 
-
-    </script>
+    </script> 
 
 
 </body>
