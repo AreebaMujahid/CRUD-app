@@ -48,35 +48,44 @@
         function addData(event)
         {
             event.preventDefault();
-            let name = document.getElementById("name").value;     <!-- we use document to access globally a parent , we can say that its a parent-->
+            let name = document.getElementById("name").value;     
             let email = document.getElementById("email").value;
             let phone = document.getElementById("phone").value;
             
             let table = document.getElementById("table");
-            let newrow = table.insertRow(table.rows.length);      <!--syntax to add new row (just structure) to that table-->
+            let newrow = table.insertRow(table.rows.length);      
             newrow.insertCell(0).innerHTML = name;
             newrow.insertCell(1).innerHTML = email;
             newrow.insertCell(2).innerHTML = phone;
+            newrow.insertCell(3).innerHTML = '<button onclick="editData(this)">Edit</button>' + '<button onclick="deleteData(this)">Delete</button>'
 
             
 
         }
         function deleteData(button)
         {
+            let row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
 
         }
-        function editData(button)    <!-- this button contains ref of that particular row , whose edit button called-->
+        function editData(button)    
         {
-            <!-- 1- getThatcomplete row -->
-            let row = button.parent.parent;       <!--as table data usually is inside tr , then inside td , so first parent for td and second for tr , so it will return that complete row -->
+            
+            let row = button.parent.parent;       
         
-            <!--2- now get each cell in that row-->
+            
             let name = row.cells[0];
             let email = row.cells[1];
             let phone = row.cells[2];
+            
+            let updatedName = prompt("Enter updated name :" , name.innerHTML);   
+            let updatedEmail = prompt("Enter updated email" , email.innerHTML);
+            let updatedPhone = prompt("Enter updated phone no" , phone.innerHTML);
 
-            <!-- getUpdated values from user using PROMPT(it use two parameter one is prompt message , second is default value )-->
-            let updatedName = prompt("Enter updated name :" , name.innerHTML);   <!-
+            name.innerHTML  = updatedName.value;
+            email.innerHTML = updatedEmail.value;
+            phone.innerHTML = updatedPhone.value;
+  
 
         
         
